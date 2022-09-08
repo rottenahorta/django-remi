@@ -1,2 +1,3 @@
 venv
 django_remi.code-workspace
+.gitignore
