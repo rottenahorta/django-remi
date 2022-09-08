@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -9,8 +10,8 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
     
-    #def get_absolute_url(self):
-    #    return reverse("remi:category_list", args=[self.slug])
+    def get_absolute_url(self):
+        return reverse("remi:category_list", args=[self.slug])
     
     def __str__(self):
         return self.name
@@ -31,6 +32,10 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
         ordering = ('-created',) # sort by field 'created' '-' means descending
+
+    def get_absolute_url(self):
+        return reverse('remi:product_detail', args=[self.slug])
+    
 
     def __str__(self):
         return self.title
