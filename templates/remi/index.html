@@ -1,22 +1,8 @@
 {% extends "./base.html" %}
 {% load static %}
-{%block title%}Главная страница{% endblock %}
 {%block content%}
 
 <main>
-
-    <section class="py-5 text-center container">
-      <div class="row py-lg-3">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="h1 fw-bold">Самые низкие цены</h1>
-          <p class="lead text-muted">Воодушевляющие слова о том, почему тут стоит много чего покупать</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Зарегистрироваться</a>
-          </p>
-        </div>
-      </div>
-    </section>
-  
     <div class="album py-5 bg-light">
       <div class="container">
   
@@ -27,7 +13,7 @@
   
           <div class="col">
             <div class="card shadow-sm">
-              <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+              <img class="img-fluid" src="{{ product.image.url }}">
               <div class="card-body">
                 <p class="card-text">
                   <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>

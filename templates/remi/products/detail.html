@@ -8,17 +8,17 @@
     <main class="pt-5">
         <div class="row g-3">
             <div class="col-md-5 col-lg-5 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Responsive image" src="{{ product.image.url }}">
+                <img class="img-fluid mx-auto d-block" width="200px" src="{{ product.image.url }}">
             </div>
             <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
                 <h1 class="mb-0 h4">{{ product.title }}</h1>
-                <p><span class="lead">{{ product.brand }}</span> (Author)</p>
-                <p>{{ product.description|slice:":355" }}...</p>
+                <p><span class="lead">{{ product.brand }}</span></p>
+                <p>{{ product.description|slice:":355" }}</p>
                 <div class="border">
                     <div class="col border-bottom">
                         <div class="row p-3">
                             <div class="col-6">Цена</div>
-                            <div class="col-6 text-end"><span class="h4 fw-bold">₽{{ product.price }}</span></div>
+                            <div class="col-6 text-end"><span class="h4 fw-bold">{{ product.price }}₽</span></div>
                         </div>
                     </div>
                     <div class="col">
@@ -26,14 +26,14 @@
                             <div class="col-6">
                                 <label for="select">Количество</label>
                                 <select id="select">
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
                                 </select>
 
                             </div>
-                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm">Добавить в корзину</button></div>
+                            <div class="col-6 text-end"><button type="button" class="btn btn-secondary btn-sm" id="basket-add" value="{{ product.id }}">Добавить в корзину</button></div>
                         </div>
                     </div>
                 </div>
@@ -42,4 +42,24 @@
     </main>
 
 </div>
+
+<script>
+    $(document).on('click', '#basket-add', function(e) {
+        e.preventDefault();
+        $.ajax( {
+            type: 'POST',
+            url: '{% url "basket:basket_add" %}',
+            data: {
+                product_id: $('#basket-add').val(),
+                product_quantity: $('#select option:selected').text(),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'post'
+            },
+            success: function (json) {
+                document.getElementById("basket-quantity").innerHTML = json.quantity
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script>
 {% endblock %}

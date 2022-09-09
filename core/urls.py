@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('remi.urls', namespace='remi'))
+    path('', include('remi.urls', namespace='remi')),
+    path('basket/', include('basket.urls', namespace='basket')),
 ]
 
 if settings.DEBUG:

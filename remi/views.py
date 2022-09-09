@@ -10,7 +10,7 @@ def categories(request):
     }
 
 def index(request):
-    products = Product.objects.all()
+    products = Product.products.all()
     return render(request, 'remi/index.html', {'products':products})
 
 def product_detail(request, slug):
@@ -19,5 +19,5 @@ def product_detail(request, slug):
 
 def category_list(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    products = Product.objects.filter(category=category)
+    products = Product.products.filter(category=category)
     return render(request, 'remi/products/category.html', {'category':category, 'products':products})
