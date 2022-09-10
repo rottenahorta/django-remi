@@ -16,7 +16,14 @@ class Basket():
             self.basket[product_id]['quantity'] += int(product_quantity) 
         else:
             self.basket[product_id] = {'price': str(product.price), 'quantity': int(product_quantity)}
+        self.save()
 
+    def delete(self, pid):
+        if pid in self.basket:
+            del self.basket[pid]
+        self.save()
+
+    def save(self):
         self.session.modified = True
     
     def get_total_price(self):

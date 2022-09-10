@@ -48,12 +48,12 @@
         e.preventDefault();
         $.ajax( {
             type: 'POST',
-            url: '{% url "basket:basket_add" %}',
+            url: '{% url "basket:basket_action" %}',
             data: {
                 product_id: $('#basket-add').val(),
                 product_quantity: $('#select option:selected').text(),
                 csrfmiddlewaretoken: '{{csrf_token}}',
-                action: 'post'
+                action: 'add'
             },
             success: function (json) {
                 document.getElementById("basket-quantity").innerHTML = json.quantity

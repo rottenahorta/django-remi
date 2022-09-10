@@ -8,15 +8,21 @@ from remi.models import Product
 def basket(request):
     return {'basket': Basket(request)}
 
-def basket_add(request):
+def basket_action(request):
     basket = Basket(request)
-    if request.POST.get('action') == 'post':
-        product_id = int(request.POST.get('product_id'))
+    pid = int(request.POST.get('product_id'))
+    if request.POST.get('action') == 'add':
+        product = get_object_or_404(Product, id=pid)
         product_quantity = request.POST.get('product_quantity')
-        product = get_object_or_404(Product, id=product_id)
         basket.add(product=product, product_quantity=product_quantity)
         response = JsonResponse({'quantity':basket.__len__()})
-        return response
+    if request.POST.get('action') == 'delete':
+        pid = str(pid)
+        basket.delete(pid=pid)
+        tp = str(basket.get_total_price())
+        q = basket.__len__()
+        response = JsonResponse({'product_id':pid, 'total_price':tp, 'quantity':q})
+    return response
 
 def basket_index(request):
     return render(request, 'remi/basket/index.html')

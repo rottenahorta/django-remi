@@ -26,22 +26,9 @@
             <div class="col">
               <div class="row p-3">
                 <div class="col-12">
-                  <label for="select">Количество</label>
-                  <select id="select{{product.id}}">
-                    <option selected>
-                      {{item.quantity}}
-                    </option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-                  <button type="button" id="update-button" data-index="{{product.id}}"
-                    class="btn btn-outline-secondary btn-sm update-button">
-                    Обновить
-                  </button>
-                  <button type="button" id="delete-button" data-index="{{product.id}}"
-                    class="btn btn-outline-secondary btn-sm delete-button">
+                  <label>Количество: </label>
+                  <span>{{item.quantity}}</span>
+                  <button type="button" data-index="{{product.id}}" class="btn btn-outline-secondary btn-sm basket-delete">
                     Удалить
                   </button>
                 </div>
@@ -53,8 +40,28 @@
       {% endwith %}
       {% endfor %}
       <div class="col-12 text-end">
-        <div class="h6 fw-bold">Всего: <div id="subtotal" class="d-inline-flex">{{basket.get_total_price}}₽</div></div>
+        <div class="h6 fw-bold">Всего: <span id="total-price" class="d-inline-flex">{{basket.get_total_price}}₽</span></div>
       </div>
     </div>
   </main>
+  <script>
+    $(document).on('click', '.basket-delete', function(e) {
+        e.preventDefault();
+        $.ajax( {
+            type: 'POST',
+            url: '{% url "basket:basket_action" %}',
+            data: {
+                product_id: $(this).data('index'),
+                csrfmiddlewaretoken: '{{csrf_token}}',
+                action: 'delete'
+            },
+            success: function (json) {
+                $('.product-item[data-index="'+ json.product_id +'"]').remove();
+                document.getElementById("total-price").innerHTML = json.total_price + '₽'
+                document.getElementById("basket-quantity").innerHTML = json.quantity
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script>
 {%endblock%}
