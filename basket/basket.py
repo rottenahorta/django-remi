@@ -23,6 +23,10 @@ class Basket():
             del self.basket[pid]
         self.save()
 
+    def clear(self):
+        del self.session['session_key']
+        self.save()
+
     def save(self):
         self.session.modified = True
     

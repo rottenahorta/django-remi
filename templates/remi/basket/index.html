@@ -42,6 +42,11 @@
       <div class="col-12 text-end">
         <div class="h6 fw-bold">Всего: <span id="total-price" class="d-inline-flex">{{basket.get_total_price}}₽</span></div>
       </div>
+      <div class="col-12 text-end">
+        <a type="button" role="button" href="{% url "orders:orders_success" %}" class="btn btn-outline-secondary">
+          Оформить заказ
+        </a>
+      </div>
     </div>
   </main>
   <script>

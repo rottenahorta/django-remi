@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'remi',
     'basket',
+    'orders',
+    'mptt',
 ]
 
 MIDDLEWARE = [
