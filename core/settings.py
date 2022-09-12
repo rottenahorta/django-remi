@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'basket',
     'orders',
     'mptt',
+    'sales',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'remi.views.categories',
                 'basket.views.basket',
+                'sales.views.sales'
             ],
         },
     },
