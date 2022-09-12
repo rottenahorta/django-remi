@@ -12,6 +12,7 @@
         <div class="pb-3 py-3 h5">{{sale.name|title}}</div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
             {% for product in sale.saleproduct_set.all %}
+            {% if product.product.price_sale != None %}
                 <div class="col">
                     <div class="card shadow-sm">
                     <img class="img-fluid" src="{{ product.product.image.url }}">
@@ -27,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+            {% endif %}
             {% endfor %}  
         </div>
         </div>  

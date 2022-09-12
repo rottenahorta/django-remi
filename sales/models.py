@@ -13,7 +13,10 @@ class Sale(models.Model):
 
 class SaleProduct(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_sale")
+
+    #def get_price_sale(self,obj):
+    #    return obj.product.price_sale
 
     def __str__(self):
         return str(self.product.title)
