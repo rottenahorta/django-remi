@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'orders',
     'mptt',
     'sales',
+    'rest_framework',
+    'drf',
 ]
 
 MIDDLEWARE = [

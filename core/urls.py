@@ -8,7 +8,8 @@ urlpatterns = [
     path('', include('remi.urls', namespace='remi')),
     path('basket/', include('basket.urls', namespace='basket')),
     path('orders/', include('orders.urls', namespace='orders')),
-    path('sales/', include('sales.urls', namespace='sales'))
+    path('sales/', include('sales.urls', namespace='sales')),
+    path('api/', include('drf.urls', namespace='drf'))
 ]
 
 if settings.DEBUG:
