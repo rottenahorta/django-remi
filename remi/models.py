@@ -1,3 +1,4 @@
+import re
 from django.db import models
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
@@ -36,7 +37,7 @@ class ProductManager(models.Manager):
         return super(ProductManager, self).get_queryset().filter(is_active=True)
     
 class Product(models.Model):
-    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
+    product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT, related_name="product_type")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     brand = models.CharField(max_length=255)
@@ -62,7 +63,7 @@ class Product(models.Model):
         return self.title
 
 class ProductSpecificationValue(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="specification")
     specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
     value = models.CharField(max_length=255)
 

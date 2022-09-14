@@ -2,6 +2,7 @@ django
 djangorestframework
 pyyaml
 requests
-django-cors-headers
 pillow
 django-mptt
+django-elasticsearch-dsl
+psycopg2-binary

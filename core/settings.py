@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'sales',
     'rest_framework',
     'drf',
+    'django_elasticsearch_dsl',
+    'search'
 ]
 
 MIDDLEWARE = [
@@ -86,8 +88,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -139,3 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+ELASTICSEARCH_DSL = {'default': {'hosts':'localhost:9200'}}
+
+REST_FRAMEWORK = {'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination', 'PAGE_SIZE':10,}
