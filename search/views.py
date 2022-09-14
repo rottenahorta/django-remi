@@ -14,19 +14,17 @@ class SearchProduct(APIView, LimitOffsetPagination):
     def get(self, request, query=None):
         try:
 
-            q = Q('multi_match', query=query, fields=['title','brand','category.name'], fuzziness='auto',)
+            q = Q('multi_match', query=query, fields=['title','brand',], fuzziness='auto',)
             #)& Q(should=
             #    [Q("match",is_active=True),], 
             #    minimum_should_match=1,
             #    )
-            print(q)
-            search = self.product_document.search().query(q)
-            print(search)
-            response = search.execute()
-            print(response)
+            s = self.product_document.search()
+            s.query_string = q
+            response = s.execute()
             res = self.paginate_queryset(response, request, view=self)
             serializer = self.product_serializer(res, many=True)
-            return Response(serializer.data)
-            #return self.get_paginated_response(serializer.data)
+            #return Response(serializer.data)
+            return self.get_paginated_response(serializer.data)
         except Exception as e:
             return HttpResponse(e, status=500)

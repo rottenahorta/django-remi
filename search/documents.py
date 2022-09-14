@@ -4,7 +4,7 @@ from remi.models import Product
 
 @registry.register_document
 class ProductDocument(Document):
-    categoryy = fields.ObjectField(properties={'name': fields.TextField()})
+    #category = fields.ObjectField(properties={'name': fields.TextField()})
 
     class Index:
         name = 'product'

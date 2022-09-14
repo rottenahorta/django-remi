@@ -23,9 +23,9 @@ class ProductSerializer(serializers.ModelSerializer):
         read_only = True
 
 class ProductSearchSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(many=True)
+    #category = CategorySerializer(many=True)
     class Meta:
         model = Product
         depth = 2
-        fields = ['title', 'brand', 'category']
+        fields = ['title', 'brand',]
         read_only = True
